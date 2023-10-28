@@ -100,43 +100,7 @@ public class TetrisHold : MonoBehaviour
         }
     }
 
-    //public void SplitObject()
-    //{
-    //    // Проверяем, количество распилов
-    //    if (maxSplitParts <= 0)
-    //    {
-    //        Debug.LogWarning("Максимальное количество распилов достигнуто.");
-    //        return;
-    //    }
-
-    //    // Создаем части объекта
-    //    GameObject[] splitParts = new GameObject[maxSplitParts];
-    //    for (int i = 0; i < maxSplitParts; i++)
-    //    {
-    //        splitParts[i] = Instantiate(splitPartPrefab, Player.transform.position, Quaternion.identity);
-    //    }
-    //    //splitPartPrefab = Tet1;
-    //    //splitPartPrefab2 = Tet2;
-
-    //    // Вычисляем позиции для каждой части объекта
-    //    Vector3 leftPosition = Player.transform.position + Vector3.left * distanceFromPlayer;
-    //    Vector3 rightPosition = Player.transform.position + Vector3.right * distanceFromPlayer;
-
-    //    // Перемещаем части объекта на позиции слева и справа от игрока
-    //    for (int i = 0; i < maxSplitParts; i++)
-    //    {
-    //        float offset = (i % 2 == 0) ? 0f : distanceFromPlayer;
-    //        Vector3 position = (i < maxSplitParts / 2) ? leftPosition : rightPosition;
-    //        splitParts[i].transform.position = position + Vector3.forward * offset;
-    //        //splitParts[i].transform.SetParent(Player.transform);
-    //    }       
-
-    //    // Удаляем исходный объект
-    //    Destroy(hit.collider.gameObject);
-    //    Hold = false;
-    //}
-
-    public void CreatePrefabTet()
+       public void CreatePrefabTet()
     {       
         Vector3 leftPosition = Player.transform.position + Vector3.left * distanceFromPlayer;
         Vector3 rightPosition = Player.transform.position + Vector3.right * distanceFromPlayer;
