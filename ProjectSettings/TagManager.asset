@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tetris
+  - Tet1
+  - Tet2
+  - Tet3
+  - Tet4
   layers:
   - Default
   - TransparentFX
@@ -15,7 +19,7 @@ TagManager:
   - Ground
   - Player
   - Tetris
-  - 
+  - InArms
   - 
   - 
   - 

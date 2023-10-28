@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class PlayerMove : MonoBehaviour
-{
+[RequireComponent(typeof(Rigidbody2D))]
 
+public class PlayerMovement : MonoBehaviour
+{
     public Rigidbody2D rb;
     public Animator Anim;
     public Transform GroundCheck;
     public LayerMask Ground;
     private Vector2 moveVector;
     private TetrisHold tetrisHold;
-    
+
 
     public bool TakeTetris = false;
     public bool OnGround;
@@ -26,29 +27,20 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
-        tetrisHold = GetComponent<TetrisHold>();        
+        tetrisHold = GetComponent<TetrisHold>();
         rb = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         GroundCheckRadius = GroundCheck.GetComponent<CircleCollider2D>().radius;
     }
 
-    void FixedUpdate()
-    {
-        Walk();
-        Reflect();
-        CheckingGround();
-        Jump();
-        HoldTetris();
-    }
-
-    void Walk()
+    public void Walk()
     {
         Anim.SetFloat("moveX", Mathf.Abs(moveVector.x));
-        moveVector.x = Input.GetAxis("Horizontal");        
+        moveVector.x = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveVector.x * speed, rb.velocity.y);
     }
 
-    void Reflect()
+    public void Reflect()
     {
         if ((moveVector.x > 0 && !faceRight) || (moveVector.x < 0 && faceRight))
         {
@@ -57,7 +49,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void Jump()
+    public void Jump()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -74,13 +66,13 @@ public class PlayerMove : MonoBehaviour
         else { jumpTime = 0; }
     }
 
-    void CheckingGround()
+    public void CheckingGround()
     {
         OnGround = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, Ground);
         Anim.SetBool("onGround", OnGround);
     }
 
-    void HoldTetris()
+    public void HoldTetris()
     {
         Anim.SetBool("takeTetris", tetrisHold.Hold);
     }
