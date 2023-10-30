@@ -10,16 +10,15 @@ public class TetrisHold : MonoBehaviour
 
     private PlayerMove playerMove;
     private MaterialVars materialVars;
-    private GameObject splitPartPrefab;
-    private GameObject splitPartPrefab2;
-
+   
     public bool Hold;
+    public bool shoveOn;
     public int maxSplitParts = 4; // Максимальное количество распилов
     public float Radius;
     public float Distance;
     public float Throw;
     public float distanceFromPlayer = 0.2f;
-
+    private float holdPos;
     private float rotate = 90;
     private int tagTet;
     private int gems;    
@@ -32,6 +31,22 @@ public class TetrisHold : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            shoveOn = !shoveOn;
+            if (shoveOn)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                if (shoveOn == false)
+                {
+                    transform.GetChild(0).gameObject.SetActive(false);
+                }
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Hold)
@@ -56,7 +71,8 @@ public class TetrisHold : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyUp(KeyCode.E))
         {
             if (!Hold)
             {
@@ -78,18 +94,20 @@ public class TetrisHold : MonoBehaviour
                 }
             }
         }
+
         if (Hold)
         {
-            hit.collider.gameObject.transform.position = HoldPoint.position;
-            if (HoldPoint.position.x > transform.position.x && Hold == true)
+            
+            if (holdPos != 0)
             {
-                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+                hit.collider.gameObject.transform.position = new Vector2(transform.position.x, transform.position.y + holdPos);
             }
-            else if (HoldPoint.position.x < transform.position.x && Hold == true)
+            else if (Hold == true)
             {
-                hit.collider.gameObject.transform.localScale = new Vector2(transform.localScale.x, transform.localScale.y);
+                hit.collider.gameObject.transform.position = HoldPoint.position;
             }
         }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (Hold)
@@ -100,7 +118,7 @@ public class TetrisHold : MonoBehaviour
         }
     }
 
-       public void CreatePrefabTet()
+    public void CreatePrefabTet()
     {       
         Vector3 leftPosition = Player.transform.position + Vector3.left * distanceFromPlayer;
         Vector3 rightPosition = Player.transform.position + Vector3.right * distanceFromPlayer;
@@ -114,6 +132,7 @@ public class TetrisHold : MonoBehaviour
     {
         MaterialVars materialVars = hit.transform.GetComponent<MaterialVars>();
         tagTet = materialVars.Parts;
+        holdPos = materialVars.HoldPos;
         gems = materialVars.Gems;
         Tet1 = materialVars.SplitPartPrefab;
         Tet2 = materialVars.SplitPartPrefab2;
@@ -133,4 +152,5 @@ public class TetrisHold : MonoBehaviour
         rb = hit.collider.gameObject.GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.None;
     }
+
 }

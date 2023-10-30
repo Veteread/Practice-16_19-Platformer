@@ -8,6 +8,6 @@ public class MaterialVars : MonoBehaviour
     public int Gems;
     public GameObject SplitPartPrefab;
     public GameObject SplitPartPrefab2;
-
+    public float HoldPos;
     #endregion
 }

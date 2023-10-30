@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
-
     public Rigidbody2D rb;
     public Animator Anim;
     public Transform GroundCheck;
@@ -16,12 +16,12 @@ public class PlayerMove : MonoBehaviour
     public bool OnGround;
     private bool jumpControl;
     private bool faceRight = true;
+    
 
     public float jumpForce = 160f;
     private float jumpTime = 0;
     private float jumpControlTime = 0.7f;
     private float GroundCheckRadius;
-
     private int speed = 3;
 
     void Start()
@@ -39,6 +39,7 @@ public class PlayerMove : MonoBehaviour
         CheckingGround();
         Jump();
         HoldTetris();
+        ShoveAnim();
     }
 
     void Walk()
@@ -72,9 +73,9 @@ public class PlayerMove : MonoBehaviour
             }
         }
         else { jumpTime = 0; }
-    }
-
-    void CheckingGround()
+    }    
+   
+            void CheckingGround()
     {
         OnGround = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, Ground);
         Anim.SetBool("onGround", OnGround);
@@ -83,5 +84,10 @@ public class PlayerMove : MonoBehaviour
     void HoldTetris()
     {
         Anim.SetBool("takeTetris", tetrisHold.Hold);
+    }
+
+    void ShoveAnim()
+    {
+        Anim.SetBool("shoveDown", tetrisHold.shoveOn);
     }
 }
