@@ -73,6 +73,19 @@ public class TetrisHold : MonoBehaviour
                 Hold = false;
                 if (hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
+
+                    //for (float i = 0; i <= 2; i = 0.2f)
+                    //{ 
+                   
+                    //    if (i == 2) 
+                    //    {
+                    //        for (float j = 0; j <= 2; j = 0.2f)
+                    //        {
+                    //            Throw = j;
+                    //        }
+                    //    }
+                    //    Throw = i; 
+                    //}
                     AnFreezeTetris();
                     hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 1) * Throw;
                 }
